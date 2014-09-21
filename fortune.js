@@ -1,4 +1,4 @@
-var fortune = require('fortune') 
+var fortune = require("fortune");
 var app = fortune({
 db: "./db/restaurant",
 baseUrl: "http://localhost:2000"

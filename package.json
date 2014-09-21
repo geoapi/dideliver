@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "nedb": "~0.9.4",
-    "fortune":"*"	
+    "express": "~3.4.8"
   }
 }
