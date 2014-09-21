@@ -58,9 +58,8 @@ app.resource('order', {
 //app.get('/', function(request, response) {
  // response.send('Hello World!')
 //});
-appmain
- .use(app.router);
- .get('/', function(req, res) {
+appmain.use(app.router);
+appmain.get('/', function(req, res) {
     res.send('Hello, you have reached the API.');
   });
 appmain.listen(port);
