@@ -54,4 +54,7 @@ app.resource('order', {
 	created:String,
 	status_code:String
 });
+app.get('/', function(request, response) {
+  response.send('Hello World!')
+});
 app.listen(app.get('port'));
