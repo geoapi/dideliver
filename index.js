@@ -2,7 +2,7 @@ var fortune = require('fortune'), express = fortune.express;
 var appmain = express(), port = process.argv[2] || 4000;
 var app = fortune({
 db: "./db/restaurant",
-baseUrl: "gentle-forest-1449.herokuapp.com"
+baseUrl: "http://gentle-forest-1449.herokuapp.com"
 });
 
 
