@@ -1,4 +1,5 @@
-var fortune = require('fortune') 
+var fortune = require('fortune'), express = fortune.express;
+var appmain = express(), port = process.argv[2]|| 4000;
 var app = fortune({
 db: "./db/restaurant",
 baseUrl: "gentle-forest-1449.herokuapp.com"
@@ -57,4 +58,12 @@ app.resource('order', {
 //app.get('/', function(request, response) {
  // response.send('Hello World!')
 //});
-app.listen(process.argv[2] || 5000);
+appmain
+ .use(app.router)
+ .get('/', function(req, res) {
+    res.send('Hello, you have reached the API.');
+  })
+ .listen(port);
+
+console.log('Listening on port ' + port + '...');
+
