@@ -1,7 +1,7 @@
 var fortune = require('fortune') 
 var app = fortune({
 db: "./db/restaurant",
-baseUrl: "http://localhost:2000"
+baseUrl: "gentle-forest-1449.herokuapp.com"
 });
 
 
@@ -54,4 +54,4 @@ app.resource('order', {
 	created:String,
 	status_code:String
 });
-app.listen(2000);
+app.listen(app.get('port'));
