@@ -30,7 +30,10 @@ app.resource('RestaurantType',{
 	r_has_rType:['restaurant_has_restaurantType']
 });
 
-
+app.resource('restaurant_has_restaurantType',{
+   Restaurant_id: Number,
+   RestaurantType_id: Number
+});
 
 app.resource('menu',{
 	title:String,
