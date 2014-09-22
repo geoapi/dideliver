@@ -65,6 +65,9 @@ appmain.use(app.router);
 appmain.get('/', function(req, res) {
     res.send('Hello, you have reached the API.');
   });
+appmain.get('/restaurants', function(req,res){
+res.send(req.body.text );
+});
 appmain.listen(port);
 
 console.log('Listening on port ' + port + '...');
