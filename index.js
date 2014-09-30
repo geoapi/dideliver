@@ -12,48 +12,48 @@ var ddAPI = fortune({
 
 
 ddAPI.resource('restaurant',{
-	name:String,
-	manager: {ref:'user', inverse:'restaurant'},
-	email:String,
-	phone:String,
-	restaurantTypes: [{ref:'restaurantType', inverse:'restaurants'}],
-	address:String,
-	menuItems: [{ref:'menuItem', inverse:'restaurant'}]
+    name:String,
+    manager: {ref:'user', inverse:'restaurant'},
+    email:String,
+    phone:String,
+    restaurantTypes: [{ref:'restaurantType', inverse:'restaurants'}],
+    address:String,
+    menuItems: [{ref:'menuItem', inverse:'restaurant'}]
     orders : [{ref:'order', inverse:'restaurant'}]
 });
 
 
 ddAPI.resource('restaurantType', {
-	name:String,
+    name:String,
     restaurants: [{ref:'restaurant', inverse:'restaurantTypes'}]
 });
 
 
 ddAPI.resource('menuItem', {
-	name:String,
-	price:Number,
-	image:String,
-	Description:String,
+    name:String,
+    price:Number,
+    image:String,
+    Description:String,
     restaurant: {ref:'restaurant', inverse:'menuItems'}
 });
 
 
 ddAPI.resource('user', {
-	username: String,
-	firstname: String,
-	lastname: String,
-	email: String,
+    username: String,
+    firstname: String,
+    lastname: String,
+    email: String,
     phone: String,
-	university: String,
+    university: String,
     restaurant: {ref:'restaurant', inverse:'manager'}, 
-	ordersMade: [{ref:'order', inverse:'customer'}],
+    ordersMade: [{ref:'order', inverse:'customer'}],
     ordersToDeliver: [{ref:'order', inverse:'driver'}],
     userType: {ref: 'userType', inverse:'users'}
 });
 
 
 ddAPI.resource('userType', {
-	name:String,
+    name:String,
     users: [{ref:'users', inverse:'userType'}]
 });
 
@@ -64,11 +64,11 @@ ddAPI.resource('order', {
     menuItems:[{ref:'menuItem', inverse:null}],
     customer:{ref:'user', inverse:'ordersMade'},
     driver:{ref:'user', inverse:'ordersToDeliver'},
-	delivery_address: String,
-	delivery_cost: Number,
-	cost:Number,
-	created:Date,
-	statusCode:String
+    delivery_address: String,
+    delivery_cost: Number,
+    cost:Number,
+    created:Date,
+    statusCode:String
 });
 
 
