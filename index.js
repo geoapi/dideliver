@@ -1,74 +1,97 @@
 var fortune = require('fortune'), express = fortune.express;
-var appmain = express(), port = process.env.PORT || 4000;
-var app = fortune({
-db: "./db/restaurant",
-baseUrl: "http://gentle-forest-1449.herokuapp.com"
+var container = express(), port = process.env.PORT || 4000;
+var ddAPI = fortune({
+    db: './db/restaurant',
+    baseUrl: 'http://gentle-forest-1449.herokuapp.com'
 });
 
 
-app.resource('restaurant',{
-	username:String,
-	password:String, //will check with stormpath and how we can represent it
-	title:String,
-	contact_person:String,
+//TODO comments
+
+//TODO add authentication
+
+
+ddAPI.resource('restaurant',{
+	name:String,
+	manager: {ref:'user', inverse:'restaurant'},
 	email:String,
 	phone:String,
-	restaurant_type:String,
+	restaurantTypes: [{ref:'restaurantType', inverse:'restaurants'}],
 	address:String,
-	menu_r:['menu'],
-	r_has_rType:['restaurant_has_restaurantType']
+	menuItems: [{ref:'menuItem', inverse:'restaurant'}]
+    orders : [{ref:'order', inverse:'restaurant'}]
 });
 
-//app.resource('restaurant_has_restaurantType',{
-//	Restaurant_id:Number,
-//	RestaurantType_id:Number
-//});
 
-
-app.resource('RestaurantType',{
+ddAPI.resource('restaurantType', {
 	name:String,
-	r_has_rType:['restaurant_has_restaurantType']
+    restaurants: [{ref:'restaurant', inverse:'restaurantTypes'}]
 });
 
-app.resource('restaurant_has_restaurantType',{
-   Restaurant_id: Number,
-   RestaurantType_id: Number
-});
 
-app.resource('menu',{
-	title:String,
+ddAPI.resource('menuItem', {
+	name:String,
 	price:Number,
 	image:String,
 	Description:String,
-	order1:['order']
+    restaurant: {ref:'restaurant', inverse:'menuItems'}
 });
-app.resource('user', {
+
+
+ddAPI.resource('user', {
 	username: String,
 	firstname: String,
 	lastname: String,
 	email: String,
+    phone: String,
 	university: String,
-	order1:['order']
+    restaurant: {ref:'restaurant', inverse:'manager'}, 
+	ordersMade: [{ref:'order', inverse:'customer'}],
+    ordersToDeliver: [{ref:'order', inverse:'driver'}],
+    userType: {ref: 'userType', inverse:'users'}
 });
-app.resource('order', {
+
+
+ddAPI.resource('userType', {
+	name:String,
+    users: [{ref:'users', inverse:'userType'}]
+});
+
+
+//TODO assign driver on creation
+ddAPI.resource('order', {
+    restaurant:{ref:'restaurant', inverse:'orders'},
+    menuItems:[{ref:'menuItem', inverse:null}],
+    customer:{ref:'user', inverse:'ordersMade'},
+    driver:{ref:'user', inverse:'ordersToDeliver'},
 	delivery_address: String,
 	delivery_cost: Number,
 	cost:Number,
-	paid:Number,
-	created:String,
-	status_code:String
+	created:Date,
+	statusCode:String
 });
-//app.get('/', function(request, response) {
- // response.send('Hello World!')
-//});
-appmain.use(app.router);
-appmain.get('/', function(req, res) {
+
+
+//TODO add socketIO order updates
+
+//TODO Create custom queries
+
+
+container.use(ddAPI.router);
+container.get('/', function(req, res) {
     res.send('Hello, you have reached the API.');
-  });
-appmain.get('/restaurants', function(req,res){
-res.send(req.body.text );
 });
-appmain.listen(port);
+
+container.get('/restaurants', function(req,res){
+    res.send(req.body.text );
+});
+
+
+container.get('/drivers', function(req,res){
+    res.send(req.body.text);
+});
+
+container.listen(port);
 
 console.log('Listening on port ' + port + '...');
 
