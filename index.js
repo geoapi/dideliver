@@ -15,8 +15,8 @@ app.resource('restaurant',{
 	phone:String,
 	restaurant_type:String,
 	address:String,
-	menu_r:['menu'],
-	r_has_rType:['restaurant_has_restaurantType']
+	menus:['menu'],
+//	r_has_rType:['restaurant_has_restaurantType']
 });
 
 //app.resource('restaurant_has_restaurantType',{
@@ -24,16 +24,23 @@ app.resource('restaurant',{
 //	RestaurantType_id:Number
 //});
 
+app.resource('driver',{
+	name: String,
+	phone:String,
+	email:String,
+	orders:['order']
+});
+
 
 app.resource('RestaurantType',{
 	name:String,
-	r_has_rType:['restaurant_has_restaurantType']
+//	r_has_rType:['restaurant_has_restaurantType']
 });
 
-app.resource('restaurant_has_restaurantType',{
-   Restaurant_id: Number,
-   RestaurantType_id: Number
-});
+//app.resource('restaurant_has_restaurantType',{
+//   Restaurant_id: Number,
+ //  RestaurantType_id: Number
+//});
 
 app.resource('menu',{
 	title:String,
@@ -68,6 +75,12 @@ appmain.get('/', function(req, res) {
 appmain.get('/restaurants', function(req,res){
 res.send(req.body.text );
 });
+
+
+appmain.get('/drivers', function(req,res){
+res.send(req.body.text);
+});
+
 appmain.listen(port);
 
 console.log('Listening on port ' + port + '...');
