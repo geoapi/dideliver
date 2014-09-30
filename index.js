@@ -13,19 +13,19 @@ var ddAPI = fortune({
 
 ddAPI.resource('restaurant',{
     name:String,
-    manager: {ref:'user', inverse:'restaurant'},
+    manager: 'user',
     email:String,
     phone:String,
-    restaurantTypes: [{ref:'restaurantType', inverse:'restaurants'}],
+    restaurantTypes: ['restaurantType'],
     address:String,
-    menuItems: [{ref:'menuItem', inverse:'restaurant'}]
-    orders : [{ref:'order', inverse:'restaurant'}]
+    menuItems: ['menuItem']
+    orders : ['order']
 });
 
 
 ddAPI.resource('restaurantType', {
     name:String,
-    restaurants: [{ref:'restaurant', inverse:'restaurantTypes'}]
+    restaurants: ['restaurant']
 });
 
 
@@ -34,7 +34,7 @@ ddAPI.resource('menuItem', {
     price:Number,
     image:String,
     Description:String,
-    restaurant: {ref:'restaurant', inverse:'menuItems'}
+    restaurant: 'restaurant'
 });
 
 
@@ -45,23 +45,22 @@ ddAPI.resource('user', {
     email: String,
     phone: String,
     university: String,
-    restaurant: {ref:'restaurant', inverse:'manager'}, 
+    restaurant: 'restaurant', 
     ordersMade: [{ref:'order', inverse:'customer'}],
     ordersToDeliver: [{ref:'order', inverse:'driver'}],
-    userType: {ref: 'userType', inverse:'users'}
+    userType: 'userType'
 });
 
 
 ddAPI.resource('userType', {
     name:String,
-    users: [{ref:'users', inverse:'userType'}]
 });
 
 
 //TODO assign driver on creation
 ddAPI.resource('order', {
-    restaurant:{ref:'restaurant', inverse:'orders'},
-    menuItems:[{ref:'menuItem', inverse:null}],
+    restaurant:'restaurant',
+    menuItems:['menuItem'],
     customer:{ref:'user', inverse:'ordersMade'},
     driver:{ref:'user', inverse:'ordersToDeliver'},
     delivery_address: String,
@@ -72,7 +71,7 @@ ddAPI.resource('order', {
 });
 
 
-//TODO add socketIO order updates
+//TODO add socketIO for order updates
 
 //TODO Create custom queries
 
