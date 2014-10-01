@@ -6,9 +6,6 @@ var ddAPI = fortune({
     adapter: 'nedb'
 });
 
-var driverTypeId = "";
-
-
 //TODO comments
 
 //TODO add authentication
@@ -52,13 +49,8 @@ ddAPI.resource('user', {
     restaurant: 'restaurant', 
     ordersMade: [{ref:'order', inverse:'customer'}],
     ordersToDeliver: [{ref:'order', inverse:'driver'}],
-    userType: 'userType'
+    userType: Number //1 = driver, 2 = restaurant manager, 3 = user
 });
-
-
-ddAPI.resource('userType', {
-    name:String,
-}).readOnly();
 
 
 ddAPI.resource('university', {
@@ -82,7 +74,7 @@ ddAPI.resource('order', {
     function() {
         var order = this;
         order.created = new Date();
-        ddAPI.adpater.findMany('user', {userType:driverTypeId, university:this.university}).then(
+        ddAPI.adpater.findMany('user', {userType:process.env.DRIVER_TYPE, university:this.university}).then(
             //Found
             function(users) {
                 //Find driver with lowest delivery count, and assign delivery to them
@@ -109,12 +101,6 @@ ddAPI.resource('order', {
         return this;
     }
 );
-
-//Driver Type Id Required 
-ddAPI.adapter.find('userType', {name:'driver'}).next(function(driverType) {
-    driverTypeId = driverType.id;
-});
-
 
 //TODO Create custom queries
 
