@@ -5,7 +5,7 @@ var ddAPI = fortune({
     baseUrl: 'http://gentle-forest-1449.herokuapp.com'
 });
 
-
+var driverType = "";
 //TODO comments
 
 //TODO add authentication
@@ -18,6 +18,7 @@ ddAPI.resource('restaurant',{
     phone:String,
     restaurantTypes: ['restaurantType'],
     address:String,
+    university:'university',
     menuItems: ['menuItem']
     orders : ['order']
 });
@@ -44,7 +45,7 @@ ddAPI.resource('user', {
     lastname: String,
     email: String,
     phone: String,
-    university: String,
+    university: 'university',
     restaurant: 'restaurant', 
     ordersMade: [{ref:'order', inverse:'customer'}],
     ordersToDeliver: [{ref:'order', inverse:'driver'}],
@@ -56,22 +57,56 @@ ddAPI.resource('userType', {
     name:String,
 });
 
+ddAPI.resource('university', {
+    name:String,
+});
 
-//TODO assign driver on creation
+//TODO Initialise stuff -> especially driverType
+
 ddAPI.resource('order', {
     restaurant:'restaurant',
     menuItems:['menuItem'],
     customer:{ref:'user', inverse:'ordersMade'},
     driver:{ref:'user', inverse:'ordersToDeliver'},
+    university:'university',
     delivery_address: String,
     delivery_cost: Number,
     cost:Number,
     created:Date,
     statusCode:String
-});
+}).transform(
+    //before storing in database
+    function() {
+        var order = this;
+        order.created = new Date();
+        ddAPI.adpater.findMany('user', {userType:driverType, university:this.university}).then(
+            //Found
+            function(users) {
+                //Find driver with lowest delivery count, and assign delivery to them
+                var orderCount = Number.MAX_VALUE;
+                var leastUser;
+                users.forEach(function(user) {
+                    if (user.ordersToDeliver.length < orderCount) {
+                        leastUser = user;
+                        orderCount = user.ordersToDeliver.length;
+                    }
+                }
+                order.driver = user.id;
+            },
+            //Error
+            function() {
+                throw new Error("Couldn't find driver for university");
+            }
+        );
+        return order;
+    },
+    //After order insertion -- probably broadcast on websocket
+    //TODO add socketIO for order updates
+    function() {
+        return this;
+    }
+);
 
-
-//TODO add socketIO for order updates
 
 //TODO Create custom queries
 
