@@ -1,11 +1,19 @@
 var fortune = require('fortune'), express = fortune.express;
 var container = express(), port = process.env.PORT || 4000;
 var ddAPI = fortune({
-    db: './db/restaurant',
-    baseUrl: 'http://gentle-forest-1449.herokuapp.com'
+    db: './db/dddb',
+    baseUrl: 'http://gentle-forest-1449.herokuapp.com',
+    adapter: 'nedb'
 });
 
 var driverType = "";
+
+if (!('DRIVER_TYPE' in process.env)) {
+    ddAPI.find('userType', {name:'driver'}).next(function(driverType) {
+        driverType = driverType.id;
+    });
+}
+
 //TODO comments
 
 //TODO add authentication
@@ -55,13 +63,13 @@ ddAPI.resource('user', {
 
 ddAPI.resource('userType', {
     name:String,
-});
+}).readOnly();
+
 
 ddAPI.resource('university', {
     name:String,
-});
+}).readOnly();
 
-//TODO Initialise stuff -> especially driverType
 
 ddAPI.resource('order', {
     restaurant:'restaurant',

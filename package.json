@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/geoapi/dideliver",
   "dependencies": {
-    "fortune": "^0.2.4"
+    "fortune": "^0.2.4",
+    "migrate": "^0.1.4"
   }
 }
