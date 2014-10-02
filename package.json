@@ -1,6 +1,23 @@
 {
+  "name": "dideliver",
+  "version": "0.0.1",
+  "description": "API For dine and deliver",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/geoapi/dideliver.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geoapi/dideliver/issues"
+  },
+  "homepage": "https://github.com/geoapi/dideliver",
   "dependencies": {
-    "nedb": "~0.9.4",
-    "express": "~3.4.8"
+    "fortune": "^0.2.4",
+    "migrate": "^0.1.4"
   }
 }
