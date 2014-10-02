@@ -19,7 +19,7 @@ ddAPI.resource('restaurant',{
     restaurantTypes: ['restaurantType'],
     address:String,
     university:'university',
-    menuItems: ['menuItem']
+    menuItems: ['menuItem'],
     orders : ['order']
 });
 
