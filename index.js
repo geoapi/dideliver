@@ -1,15 +1,15 @@
 var fortune = require('fortune'), express = fortune.express;
 var container = express(), port = process.env.PORT || 4000;
+var RSVP = fortune.RSVP;
 var ddAPI = fortune({
-    db: './db/dddb',
+    db: './db',
     baseUrl: 'http://gentle-forest-1449.herokuapp.com',
-    adapter: 'nedb'
 });
+
 
 //TODO comments
 
 //TODO add authentication
-
 
 ddAPI.resource('restaurant',{
     name:String,
@@ -55,6 +55,7 @@ ddAPI.resource('user', {
 
 ddAPI.resource('university', {
     name:String,
+    restaurants:['restaurant']
 }).readOnly();
 
 
@@ -64,20 +65,27 @@ ddAPI.resource('order', {
     customer:{ref:'user', inverse:'ordersMade'},
     driver:{ref:'user', inverse:'ordersToDeliver'},
     university:'university',
-    delivery_address: String,
-    delivery_cost: Number,
+    deliveryAddress: String,
+    deliveryGPSPoint: String,
+    deliveryCost: Number,
     cost:Number,
     created:Date,
     statusCode:String
 }).transform(
     //before storing in database assign driver
-    function() {
+    function(request) {
         var order = this;
-        order.created = new Date();
-        ddAPI.adpater.findMany('user', {userType:process.env.DRIVER_TYPE, university:this.university}).then(
-            //Found
-            function(users) {
-                //Find driver with lowest delivery count, and assign delivery to them
+
+        return new RSVP.promise(function (resolve, reject) {
+            ddAPI.adapter.findMany('user', {userType:process.env.DRIVER_TYPE, university:order.university})
+                .then(function (users) {
+                    setOrderDriver(users);
+                });
+
+            function setOrderDriver(users) {
+                if (users.length == 0) {
+                    reject();
+                }
                 var orderCount = Number.MAX_VALUE;
                 var leastUser;
                 users.forEach(function(user) {
@@ -85,15 +93,13 @@ ddAPI.resource('order', {
                         leastUser = user;
                         orderCount = user.ordersToDeliver.length;
                     }
-                }
+                });
+
+                order.created = new Date();
                 order.driver = leastUser.id;
-            },
-            //Error
-            function() {
-                throw new Error("Couldn't find driver for university");
+                resolve(order);
             }
-        );
-        return order;
+       });
     },
     //After order insertion -- probably broadcast on websocket
     //TODO add socketIO for order updates
@@ -102,21 +108,18 @@ ddAPI.resource('order', {
     }
 );
 
-//TODO Create custom queries
-
-
 container.use(ddAPI.router);
+
+//Query to get driver orders
+container.get('/driver_orders/:id', function (req, res) {
+    ddAPI.adapter.findMany('order', {driver:req.params.id}).then(function(orders) {
+        res.json(orders);
+    });
+});
+
+
 container.get('/', function(req, res) {
     res.send('Hello, you have reached the API.');
-});
-
-container.get('/restaurants', function(req,res){
-    res.send(req.body.text );
-});
-
-
-container.get('/drivers', function(req,res){
-    res.send(req.body.text);
 });
 
 container.listen(port);
