@@ -86,7 +86,7 @@ ddAPI.resource('order', {
                         orderCount = user.ordersToDeliver.length;
                     }
                 }
-                order.driver = user.id;
+                order.driver = leastUser.id;
             },
             //Error
             function() {
