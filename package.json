@@ -18,6 +18,7 @@
   "homepage": "https://github.com/geoapi/dideliver",
   "dependencies": {
     "fortune": "^0.2.4",
+    "fortune-mongodb": "^0.2.2",
     "migrate": "^0.1.4"
   }
 }

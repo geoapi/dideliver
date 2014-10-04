@@ -1,7 +1,10 @@
 var fortune = require('fortune')
 var RSVP = fortune.RSVP
+var uristring = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 
+                'mongodb://localhost/dd';
 var ddAPI = fortune({
-    db: './db',
+    adapter:'mongodb',
+    connectionString:uristring
 });
 
 var driver = 1, manager = 2, customer = 3;
