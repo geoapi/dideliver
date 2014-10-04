@@ -77,7 +77,7 @@ ddAPI.resource('order', {
     cost:Number,
     created:Date,
     statusCode:String
-}).transform(
+})/*.transform(
     //TODO generate cost of order
     //before storing in database assign driver
     function(request) {
@@ -113,4 +113,4 @@ ddAPI.resource('order', {
     function() {
         return this;
     }
-);
+)*/;
