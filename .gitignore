@@ -8,10 +8,10 @@ lib-cov
 *.gz
 *.swp
 
+.migrate
 pids
 logs
 results
-
-node_modules/*
+node_modules
 
 npm-debug.log

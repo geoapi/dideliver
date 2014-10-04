@@ -1,8 +1,5 @@
-var fortune = require('fortune');
-var ddAPI = fortune({
-    db: './db/dddb',
-    baseUrl: 'http://gentle-forest-1449.herokuapp.com',
-});
+var db = require('../db');
+var ddAPI = db.api;
 
 exports.up = function(next){
     ddAPI.adapter.create('university', {name:'UNSW'});
