@@ -1,10 +1,10 @@
 var fortune = require('fortune'),
     RSVP = fortune.RSVP,
     uristring = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/dd',
+    cors = require('cors'),
     ddAPI = fortune({
         adapter:'mongodb',
         connectionString:uristring,
-        cors:true
     });
 
 var driver = 1, manager = 2, customer = 3;
@@ -62,7 +62,7 @@ ddAPI.resource('user', {
 ddAPI.resource('university', {
     name:String,
     restaurants:['restaurant']
-});
+}, {cors:true});
 
 
 ddAPI.resource('order', {
