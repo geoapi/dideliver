@@ -1,28 +1,14 @@
-var fortune = require('fortune'), express = fortune.express;
-var app = express(), port = process.env.PORT || 4000;
-var db = require('./db');
-var ddAPI = db.api;
+var fortune = require('fortune'), 
+    express = fortune.express, 
+    app = express(), 
+    port = process.env.PORT || 4000,
+    cors = require('cors'),
+    db = require('./db'),
+    ddAPI = db.api,
 
-// Add headers
-app.use(function (req, res, next) {
 
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    //res.setHeader('Access-Control-Allow-Origin', 'http://delivery-customers.herokuapp.com/');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    //res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
+//Allow cors 
+app.use(cors());
 
 app.use(ddAPI.router);
 
