@@ -2,13 +2,16 @@ var fortune = require('fortune'),
     express = fortune.express, 
     app = express(), 
     port = process.env.PORT || 4000,
-    cors = require('cors'),
-    db = require('./db'),
+    cors = require('cors');
+
+
+app.use(cors());
+
+
+var db = require('./db'),
     ddAPI = db.api;
 
-
 //Allow cors 
-app.use(cors());
 
 app.use(ddAPI.router);
 
