@@ -4,7 +4,7 @@ var fortune = require('fortune'),
     port = process.env.PORT || 4000,
     cors = require('cors'),
     db = require('./db'),
-    ddAPI = db.api,
+    ddAPI = db.api;
 
 
 //Allow cors 
