@@ -5,6 +5,7 @@ var fortune = require('fortune'),
     ddAPI = fortune({
         adapter:'mongodb',
         connectionString:uristring,
+        cors:true
     });
 
 var driver = 1, manager = 2, customer = 3;
