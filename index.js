@@ -6,7 +6,7 @@ var fortune = require('fortune'),
 
 
 app.use(cors());
-
+app.options('*', cors());
 
 var db = require('./db'),
     ddAPI = db.api;
