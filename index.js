@@ -3,8 +3,6 @@ var app = express(), port = process.env.PORT || 4000;
 var db = require('./db');
 var ddAPI = db.api;
 
-app.use(ddAPI.router);
-
 // Add headers
 app.use(function (req, res, next) {
 
@@ -24,6 +22,8 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+app.use(ddAPI.router);
 
 //Query to get driver orders
 app.get('/driver_orders/:id', function (req, res) {
