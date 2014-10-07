@@ -51,7 +51,7 @@ app.get('/driver_orders/:id', function (req, res) {
     });
 });
 
-app.get('search/menuItems/:uni', function(req, res) {
+app.get('/search/menuItems/:uni', function(req, res) {
 
     ddAPI.adapter.findMany('restaurant', {university:uni}).then(function(restaurants) {
         menuIds = [];
