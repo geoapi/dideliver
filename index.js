@@ -21,6 +21,7 @@ app.get('/driver_orders/:id', function (req, res) {
 
 //Query to search menu items
 app.get('/search/menuItems', function(req,res) {
+    console.log('hits query');
     //If restaurant parameter
     if (req.query.restaurants) {
         ddAPI.adapter.find('restaurant', req.query.restaurants).then(function(restaurant) {
@@ -47,6 +48,8 @@ app.get('/search/menuItems', function(req,res) {
         });
     //Search query
     } else {
+        console.log('hits search');
+        console.log('uni-query ' +req.query.uni);
         ddAPI.adapter.find('university', req.query.uni).then(function(uni) {
             findMenuItems(uni.universities[0].links.restaurants, req.query.search, function(items) {
                 console.log('makes it to callback');
