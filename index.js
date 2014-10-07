@@ -6,6 +6,38 @@ var db = require('./db'),
     rsvp = db.rsvp,
     ddAPI = db.api;
 
+
+var findMenuItems = function (ids, query, callback) {
+
+    console.log('function called');
+    var nameQuery = {'name': new RegExp(query, "i"), 'id': {$in : ids}};
+    var descQuery = {'description': new RegExp(query, "i"), 'id': {$in : ids}};
+    
+    var promises = {
+        name: ddAPI.adapter.find('menuItems', nameQuery),
+        description: ddAPI.adapter.find('menuItems', descQuery)
+    };
+    
+    console.log('Makes it above promises');
+    rsvp.hash(promises).then(function(results) {
+        console.log('Makes it to promises');
+        var nameItems = results.name.menuItems;
+        var descItems = results.description.menuItems;
+        var items = {};
+
+        nameItems.forEach(function(item) {
+            items[item.id] = item;
+        });
+
+        descItems.forEach(function(item) {
+            items[item.id] = item;
+        });
+
+        callback(items);
+    });
+    
+};
+
 //Allow cors 
 app.use(cors());
 
@@ -68,34 +100,5 @@ app.listen(port);
 
 console.log('Listening on port ' + port + '...');
 
-function findMenuItems(ids, query, callback) {
 
-    console.log('function called');
-    var nameQuery = {'name': new RegExp(query, "i"), 'id': {$in : ids}};
-    var descQuery = {'description': new RegExp(query, "i"), 'id': {$in : ids}};
-    
-    var promises = {
-        name: ddAPI.adapter.find('menuItems', nameQuery),
-        description: ddAPI.adapter.find('menuItems', descQuery)
-    };
-    
-    console.log('Makes it above promises');
-    rsvp.hash(promises).then(function(results) {
-        console.log('Makes it to promises');
-        var nameItems = results.name.menuItems;
-        var descItems = results.description.menuItems;
-        var items = {};
-
-        nameItems.forEach(function(item) {
-            items[item.id] = item;
-        });
-
-        descItems.forEach(function(item) {
-            items[item.id] = item;
-        });
-
-        callback(items);
-    });
-    
-};
 
