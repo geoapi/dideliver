@@ -6,7 +6,7 @@ var db = require('./db'),
     rsvp = db.rsvp,
     ddAPI = db.api;
 
-
+/*
 var findMenuItems = function (ids, query, callback) {
 
     console.log('function called');
@@ -37,7 +37,7 @@ var findMenuItems = function (ids, query, callback) {
     });
     
 };
-
+*/
 //Allow cors 
 app.use(cors());
 
@@ -51,7 +51,21 @@ app.get('/driver_orders/:id', function (req, res) {
     });
 });
 
+app.get('search/menuItems/:uni', function(req, res) {
+
+    ddAPI.adapter.findMany('restaurant', {university:uni}).then(function(restaurants) {
+        menuIds = [];
+        restaurants.restaurants.forEach(function(rest) {
+            menuIds.concat(rest.links.menuItems);
+        });
+        ddAPI.adapter.findMany('menuItems', menuIds).then(function(items) {
+            res.json(items);
+        });
+    });
+});
+
 //Query to search menu items
+/*
 app.get('/search/menuItems', function(req,res) {
     console.log('hits query');
     //If restaurant parameter
@@ -91,6 +105,7 @@ app.get('/search/menuItems', function(req,res) {
         });
     }
 });
+*/
 
 app.get('/', function(req, res) {
     res.send('Hello, you have reached the API.');
