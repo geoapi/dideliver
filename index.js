@@ -58,6 +58,7 @@ app.get('/search/menuItems/:uni', function(req, res) {
         restaurants.restaurants.forEach(function(rest) {
             menuIds.concat(rest.links.menuItems);
         });
+        console.log(menuIds);
         ddAPI.adapter.findMany('menuItems', menuIds).then(function(items) {
             res.json(items);
         });
