@@ -51,6 +51,7 @@ app.get('/search/menuItems', function(req,res) {
         console.log('hits search');
         console.log('uni-query ' +req.query.uni);
         ddAPI.adapter.find('university', req.query.uni).then(function(uni) {
+            console.log('uni found');
             findMenuItems(uni.universities[0].links.restaurants, req.query.search, function(items) {
                 console.log('makes it to callback');
                 res.json(items);
