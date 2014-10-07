@@ -48,6 +48,7 @@ app.get('/search/menuItems', function(req,res) {
     //Search query
     } else {
         findMenuItems(null, req.query.search, function(items) {
+            console.log('makes it to callback');
             res.json(items);
         });
     }
@@ -74,8 +75,10 @@ var findMenuItems = function(ids, query, callback) {
         name: ddAPI.adapter.find('menuItems', nameQuery),
         description: ddAPI.adapter.find('menuItems', descQuery)
     };
-
+    
+    console.log('Makes it above promises');
     rsvp.hash(promises).then(function(results) {
+        console.log('Makes it to promises');
         var nameItems = results.name.menuItems;
         var descItems = results.description.menuItems;
         var items = {};
