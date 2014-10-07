@@ -68,7 +68,7 @@ app.listen(port);
 
 console.log('Listening on port ' + port + '...');
 
-var findMenuItems = function(ids, query, callback) {
+function findMenuItems(ids, query, callback) {
 
     var nameQuery = {'name': new RegExp(query, "i"), 'id': {$in : ids}};
     var descQuery = {'description': new RegExp(query, "i"), 'id': {$in : ids}};
