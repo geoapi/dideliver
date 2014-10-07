@@ -47,9 +47,11 @@ app.get('/search/menuItems', function(req,res) {
         });
     //Search query
     } else {
-        findMenuItems(null, req.query.search, function(items) {
-            console.log('makes it to callback');
-            res.json(items);
+        ddAPI.adapter.find('university', req.query.uni).then(function(uni) {
+            findMenuItems(uni.universities[0].links.restaurants, req.query.search, function(items) {
+                console.log('makes it to callback');
+                res.json(items);
+            });
         });
     }
 });
@@ -64,12 +66,8 @@ console.log('Listening on port ' + port + '...');
 
 var findMenuItems = function(ids, query, callback) {
 
-    var nameQuery = {'name': new RegExp(query, "i")};
-    var descQuery = {'description': new RegExp(query, "i")};
-    if (ids) {
-        nameQuery.id = {$in : ids};
-        descQuery.id = {$in : ids};
-    }
+    var nameQuery = {'name': new RegExp(query, "i"), 'id': {$in : ids}};
+    var descQuery = {'description': new RegExp(query, "i"), 'id': {$in : ids}};
     
     var promises = {
         name: ddAPI.adapter.find('menuItems', nameQuery),
