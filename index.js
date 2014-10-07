@@ -53,7 +53,7 @@ app.get('/driver_orders/:id', function (req, res) {
 
 app.get('/search/menuItems/:uni', function(req, res) {
 
-    ddAPI.adapter.findMany('restaurant', {university:uni}).then(function(restaurants) {
+    ddAPI.adapter.findMany('restaurant', {university:req.params.uni}).then(function(restaurants) {
         menuIds = [];
         restaurants.restaurants.forEach(function(rest) {
             menuIds.concat(rest.links.menuItems);
