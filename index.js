@@ -54,13 +54,17 @@ app.get('/driver_orders/:id', function (req, res) {
 
 app.get('/uni_menu/:id', function(req, res) {
 
-    ddAPI.adapter.find('university', {university:req.params.uni}).then(function(uni) {
+    ddAPI.adapter.find('university', req.params.uni).then(function(uni) {
         ddAPI.adapter.findMany('restaurant', uni.links.restaurants).then(function(rests) {
+            res.json(rests);
+            /*
             var items = [];
+            console.logs(items);
             for (var rest in rests) {
                 items.concat(rest.links.menuItems);
             }
             res.json(items);
+            */
         });
         /*
         console.log('rests found');
