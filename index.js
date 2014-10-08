@@ -10,8 +10,8 @@ var db = require('./db'),
 
 //Allow cors 
 
-app.use(ddAPI.router);
 app.use(cors);
+app.use(ddAPI.router);
 
 //Query to get driver orders
 app.get('/driver_orders/:id', function (req, res) {
