@@ -52,7 +52,7 @@ app.get('/driver_orders/:id', function (req, res) {
 });
 
 
-app.get('/search/menuItems/:uni', function(req, res) {
+app.get('/uni_menu/:id', function(req, res) {
 
     ddAPI.adapter.find('university', {id:req.params.uni}).then(function(uni) {
         res.json(uni);
