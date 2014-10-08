@@ -51,12 +51,15 @@ app.get('/driver_orders/:id', function (req, res) {
     });
 });
 
+
 app.get('/search/menuItems/:uni', function(req, res) {
 
     ddAPI.adapter.findMany('restaurant', {university:req.params.uni}).then(function(restaurants) {
         console.log('rests found');
-        console.log(restaurants[0]);
-        ddAPI.adapter.findMany('menuItems', menuItems).then(function(items) {
+        console.log(restaurants);
+        console.log('menuItems');
+        console.log(restaurants.menuItems);
+        ddAPI.adapter.findMany('menuItems', restaurants.menuItems).then(function(items) {
             res.json(items);
         });
     });
