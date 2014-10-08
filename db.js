@@ -11,6 +11,8 @@ var driver = 1, manager = 2, customer = 3;
 
 module.exports = {
     api:ddAPI, 
+    express:fortune.express,
+    rsvp:fortune.rsvp,
     DRIVER_TYPE:driver,
     MANAGER_TYPE:manager,
     CUSTOMER_TYPE:customer
