@@ -9,8 +9,7 @@ var db = require('./db'),
 
 
 //Allow cors 
-app.use(cors());
-
+ddAPI.router.use(cors);
 
 app.use(ddAPI.router);
 
