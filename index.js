@@ -1,4 +1,5 @@
 var db = require('./db'),
+    Type = require('type-of-is'),
     express = db.express, 
     app = express(), 
     port = process.env.PORT || 4000,
@@ -56,6 +57,7 @@ app.get('/uni_menu/:id', function(req, res) {
 
     ddAPI.adapter.find('university', req.params.uni).then(function(uni) {
         ddAPI.adapter.findMany('restaurant', uni.links.restaurants).then(function(rests) {
+            console.log(Type(rests));
             res.json(rests);
             /*
             var items = [];
