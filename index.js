@@ -65,15 +65,6 @@ app.get('/uni_menu/:id', function(req, res) {
                 res.json(menuItems);
             });
         });
-        /*
-        console.log('rests found');
-        console.log(restaurants);
-        console.log('menuItems');
-        console.log(restaurants.menuItems);
-        ddAPI.adapter.findMany('menuItems', restaurants.menuItems).then(function(items) {
-            res.json(items);
-        });
-        */
     });
 });
 
