@@ -10,6 +10,8 @@ var fortune = require('fortune'),
 
 var driver = 1, manager = 2, customer = 3;
 
+ddAPI.router.use(cors);
+
 module.exports = {
     api:ddAPI, 
     express:fortune.express,
