@@ -62,7 +62,7 @@ app.get('/uni_menu/:id', function(req, res) {
             var items = [];
             for (var i = 0; i<rests.length; i++) {
                 console.log(rests[i]);
-                console.log(Type(rests[i]);
+                console.log(Type(rests[i]));
                 items.concat(rests[i].links.menuItems);
             }
             res.json(items);
