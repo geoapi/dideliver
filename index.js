@@ -59,14 +59,13 @@ app.get('/uni_menu/:id', function(req, res) {
         ddAPI.adapter.findMany('restaurant', uni.links.restaurants).then(function(rests) {
             console.log(Type(rests));
             res.json(rests);
-            /*
             var items = [];
-            console.logs(items);
-            for (var rest in rests) {
-                items.concat(rest.links.menuItems);
+            for (var i = 0; i<rests.length; i++) {
+                console.log(rests[i]);
+                console.log(Type(rests[i]);
+                items.concat(rests[i].links.menuItems);
             }
             res.json(items);
-            */
         });
         /*
         console.log('rests found');
