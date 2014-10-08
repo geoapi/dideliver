@@ -8,6 +8,7 @@ var fortune = require('fortune'),
         cors:false
     });
 
+ddAPI.router.use(cors());
 var driver = 1, manager = 2, customer = 3;
 
 
