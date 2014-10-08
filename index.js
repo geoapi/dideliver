@@ -1,10 +1,7 @@
 var db = require('./db'),
-    Type = require('type-of-is'),
     express = db.express, 
     app = express(), 
     port = process.env.PORT || 4000,
-    cors = require('cors'),
-    rsvp = db.rsvp,
     ddAPI = db.api;
 
 
@@ -32,7 +29,6 @@ app.get('/driver_orders/:id', function (req, res) {
 
 
 app.get('/uni_menu/:id', function(req, res) {
-
     ddAPI.adapter.find('university', {id:req.params.uni}).then(function(uni) {
         ddAPI.adapter.findMany('restaurant', uni.links.restaurants).then(function(rests) {
             var items = [];

@@ -1,7 +1,6 @@
 var fortune = require('fortune'),
     RSVP = fortune.RSVP,
     uristring = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/dd',
-    cors = require('cors'),
     ddAPI = fortune({
         adapter:'mongodb',
         connectionString:uristring,
