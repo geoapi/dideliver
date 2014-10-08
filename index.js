@@ -54,7 +54,7 @@ app.get('/driver_orders/:id', function (req, res) {
 
 app.get('/uni_menu/:id', function(req, res) {
 
-    ddAPI.adapter.find('university', {id:req.params.uni}).then(function(uni) {
+    ddAPI.adapter.find('restaurant', {university:req.params.uni}).then(function(uni) {
         res.json(uni);
         /*
         console.log('rests found');
