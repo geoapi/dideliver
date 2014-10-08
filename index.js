@@ -9,8 +9,18 @@ var db = require('./db'),
 
 
 //Allow cors 
-app.options('*', cors());
-app.use(cors());
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Accept, Content-Type, Authorization, X-Requested-With');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, PATCH, DELETE');
+
+    if (req.method === 'OPTIONS') {
+      res.send(200);
+    } else {
+      next();
+    }
+});
+
 app.use(ddAPI.router);
 
 //Query to get driver orders
