@@ -20,6 +20,7 @@
     "cors": "^2.4.2",
     "fortune": "^0.2.4",
     "fortune-mongodb": "^0.2.2",
+    "lodash": "^2.4.1",
     "migrate": "^0.1.4",
     "type-of-is": "^3.3.0"
   }
