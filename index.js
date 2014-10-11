@@ -32,14 +32,15 @@ app.get('/uni_menu/:id', function(req, res) {
     var id = req.params.id;
     ddAPI.adapter.findMany('university', [id]).then(function(unis) {
         console.log("hits");
-        console.log(unis[0]);
         ddAPI.adapter.findMany('restaurant', unis[0].links.restaurants).then(function(rests) {
             console.log("hits again");
             var items = [];
             for (var i = 0; i<rests.length; i++) {
                 items = items.concat(rests[i].links.menuItems);
             }
+            console.log(items);
             ddAPI.adapter.findMany('menuItem', items).then(function(menuItems) {
+                console.log("hits again again");
                 res.json(menuItems);
             });
         });
