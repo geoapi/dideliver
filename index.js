@@ -29,7 +29,7 @@ app.get('/driver_orders/:id', function (req, res) {
 
 
 app.get('/uni_menu/:id', function(req, res) {
-    ddAPI.adapter.find('university', {id:req.params.uni}).then(function(uni) {
+    ddAPI.adapter.find('university', req.params.uni).then(function(uni) {
         console.log(uni);
         ddAPI.adapter.findMany('restaurant', uni.links.restaurants).then(function(rests) {
             console.log(rests);
