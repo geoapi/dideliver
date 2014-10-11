@@ -43,7 +43,7 @@ ddAPI.resource('menuItem', {
     name:String,
     price:Number,
     image:String,
-    Description:String,
+    description:String,
     restaurant: 'restaurant'
 });
 
