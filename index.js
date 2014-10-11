@@ -37,7 +37,7 @@ app.get('/uni_menu/:id', function(req, res) {
             console.log("hits again");
             var items = [];
             _.each(rests, function(rest) {
-                if (_.has(rest, 'links') && _has.(rest.links, 'menuItems')) {
+                if (_.has(rest, 'links') && _.has(rest.links, 'menuItems')) {
                     items = items.concat(rest.links.menuItems); 
                 }
             });
