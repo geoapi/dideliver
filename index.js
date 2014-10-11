@@ -1,4 +1,5 @@
 var db = require('./db'),
+    _ = require('lodash'),
     express = db.express, 
     app = express(), 
     port = process.env.PORT || 4000,
@@ -35,9 +36,11 @@ app.get('/uni_menu/:id', function(req, res) {
         ddAPI.adapter.findMany('restaurant', unis[0].links.restaurants).then(function(rests) {
             console.log("hits again");
             var items = [];
-            for (var i = 0; i<rests.length; i++) {
-                items = items.concat(rests[i].links.menuItems);
-            }
+            _.each(rests, function(rest) {
+                if (_.has(rest, 'links') && _has.(rest.links, 'menuItems')) {
+                    items = items.concat(rest.links.menuItems); 
+                }
+            });
             console.log(items);
             ddAPI.adapter.findMany('menuItem', items).then(function(menuItems) {
                 console.log("hits again again");
