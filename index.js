@@ -31,6 +31,8 @@ app.get('/driver_orders/:id', function (req, res) {
 app.get('/uni_menu/:id', function(req, res) {
     var id = req.params.id;
     ddAPI.adapter.findMany('university', [id]).then(function(unis) {
+        console.log("hits");
+        console.log(unis);
         ddAPI.adapter.findMany('restaurant', unis[0].links.restaurants).then(function(rests) {
             var items = [];
             for (var i = 0; i<rests.length; i++) {

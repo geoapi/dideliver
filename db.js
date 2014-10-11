@@ -65,7 +65,7 @@ ddAPI.resource('user', {
 ddAPI.resource('university', {
     name:String,
     restaurants:['restaurant']
-}, {cors:true});
+});
 
 
 ddAPI.resource('order', {
