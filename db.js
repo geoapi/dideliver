@@ -64,6 +64,7 @@ ddAPI.resource('user', {
 
 ddAPI.resource('university', {
     name:String,
+    gpsPoint:String,
     restaurants:['restaurant']
 });
 
