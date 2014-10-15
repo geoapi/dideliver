@@ -32,9 +32,7 @@ app.get('/driver_orders/:id', function (req, res) {
 app.get('/uni_menu/:id', function(req, res) {
     var id = req.params.id;
     ddAPI.adapter.findMany('university', [id]).then(function(unis) {
-        console.log("hits");
         ddAPI.adapter.findMany('restaurant', unis[0].links.restaurants).then(function(rests) {
-            console.log("hits again");
             var items = [];
             _.each(rests, function(rest) {
                 if (_.has(rest, 'links') && _.has(rest.links, 'menuItems')) {
@@ -43,7 +41,6 @@ app.get('/uni_menu/:id', function(req, res) {
             });
             console.log(items);
             ddAPI.adapter.findMany('menuItem', items).then(function(menuItems) {
-                console.log("hits again again");
                 res.json(menuItems);
             });
         });
