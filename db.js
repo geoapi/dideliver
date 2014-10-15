@@ -85,7 +85,10 @@ ddAPI.resource('order', {
 ddAPI.before('order', function() {
     var order = this;
     return new RSVP.promise(function (resolve, reject) {
-        ddAPI.adapter.findMany('user', {userType:driver, university:order.university}).then(function(users) {
+        var query = {};
+        query['userType'] = driver;
+        query['university'] = order.university;
+        ddAPI.adapter.findMany('user', query).then(function(users) {
             console.log(users);
             resolve(order);
         }); 
