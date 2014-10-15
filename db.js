@@ -82,6 +82,7 @@ ddAPI.resource('order', {
     statusCode:String
 });
 
+/*
 ddAPI.before('order', function() {
     var order = this;
     return new RSVP.promise(function (resolve, reject) {
@@ -93,3 +94,4 @@ ddAPI.before('order', function() {
         }); 
     });
 });
+*/
