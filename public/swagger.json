@@ -1,0 +1,1514 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Dine & Deliver API",
+        "description": "Endpoint to create, update and delete Dine & Deliver resources"
+    },
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": [
+                    "users",
+                    "user"
+                ],
+                "summary": "Get all users",
+                "operationId": "getUsers",
+                "produces": [
+                    "application/vnd.api+json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "type": "array",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "users",
+                    "user"
+                ],
+                "summary": "Create users",
+                "operationId": "createUsers",
+                "consumes": [
+                    "application/vnd.api+json",
+                    "application/json",
+                    "text/json"
+                ],
+                "produces": [
+                    "application/vnd.api+json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "type": "array",
+                        "description": "User objects that need to be added to the model",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ]
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "users",
+                    "user"
+                ],
+                "summary": "Get user",
+                "operationId": "getUser",
+                "produces": [
+                    "application/vnd.api+json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID of user that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "users",
+                    "user"
+                ],
+                "summary": "Create or update user",
+                "operationId": "updateUser",
+                "consumes": [
+                    "application/vnd.api+json",
+                    "application/json",
+                    "text/json"
+                ],
+                "produces": [
+                    "application/vnd.api+json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID of user that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User objects that need to be updated or created",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Deletes a User",
+                "description": "",
+                "operationId": "deleteUser",
+                "produces": [
+                    "application/vnd.api+json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "User id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid id value"
+                    }
+                }
+            }
+        },
+        "/users/{id}/ordersMade": {
+            "get": {
+                "tags": [
+                    "order",
+                    "orders"
+                ],
+                "summary": "Get all orders user made",
+                "operationId": "getUserOrdersMade",
+                "produces": [
+                    "application/vnd.api+json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "User id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "type": "array",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}/ordersToDeliver": {
+            "get": {
+                "tags": [
+                    "order",
+                    "orders"
+                ],
+                "summary": "Get all orders dirver has to deliver",
+                "operationId": "getUserOrdersToDeliver",
+                "produces": [
+                    "application/vnd.api+json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "User id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "type": "array",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}/restaurant": {
+            "get": {
+                "get": {
+                    "tags": [
+                        "restaurant",
+                        "restaurants"
+                    ],
+                    "summary": "Get restaurant of a restaurant manager user",
+                    "operationId": "getUserRestaurants",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "$ref": "#/definitions/Restaurant"
+                            }
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "User id",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        "/users/{id}/university": {
+                "get": {
+                    "tags": [
+                        "university",
+                        "universities"
+                    ],
+                    "summary": "Get user's university",
+                    "operationId": "getUserUniversity",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "User Id",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "$ref": "#/definitions/University"
+                            }
+                        }
+                    }
+                }
+            },
+            "/restaurants": {
+                "get": {
+                    "tags": [
+                        "restaurant",
+                        "restaurants"
+                    ],
+                    "summary": "Get all restaurants",
+                    "operationId": "getRestaurants",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/definitions/Restaurant"
+                            }
+                        }
+                    }
+                },
+                "post": {
+                    "tags": [
+                        "restaurant",
+                        "restaurants"
+                    ],
+                    "summary": "Create restaurants",
+                    "operationId": "createRestaurants",
+                    "consumes": [
+                        "application/vnd.api+json",
+                        "application/json",
+                        "text/json"
+                    ],
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "Restaurant objects that need to be added to the model",
+                            "required": false,
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/definitions/Restaurant"
+                            }
+                        }
+                    ]
+                }
+            },
+            "/restaurants/{id}": {
+                "get": {
+                    "tags": [
+                        "restaurant",
+                        "restaurants"
+                    ],
+                    "summary": "Get restaurant",
+                    "operationId": "getRestaurant",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "ID of restaurant that needs to be fetched",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "$ref": "#/definitions/Restaurant"
+                            }
+                        }
+                    }
+                },
+                "put": {
+                    "tags": [
+                        "restaurant",
+                        "restaurants"
+                    ],
+                    "summary": "Create or update restaurant",
+                    "operationId": "updateRestaurant",
+                    "consumes": [
+                        "application/vnd.api+json",
+                        "application/json",
+                        "text/json"
+                    ],
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "ID of user that needs to be fetched",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "User objects that need to be updated or created",
+                            "required": false,
+                            "schema": {
+                                "$ref": "#/definitions/Restaurant"
+                            }
+                        }
+                    ]
+                },
+                "delete": {
+                    "tags": [
+                        "restaurant",
+                        "restaurants"
+                    ],
+                    "summary": "Deletes a Restaurant",
+                    "description": "",
+                    "operationId": "deleteRestaurant",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "Restaurant id to delete",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "400": {
+                            "description": "Invalid id value"
+                        }
+                    }
+                }
+            },
+            "/restaurants/{id}/restaurantTypes": {
+                "get": {
+                    "tags": [
+                        "restaurant",
+                        "restaurantType"
+                    ],
+                    "summary": "Get all restaurant types for this particular restaurant",
+                    "operationId": "getRestaurantRestaurantTypes",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "Restaurant Id",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/definitions/RestaurantType"
+                            }
+                        }
+                    }
+                }
+            },
+            "/restaurants/{id}/university": {
+                "get": {
+                    "tags": [
+                        "university",
+                        "universities"
+                    ],
+                    "summary": "Get restaurant's university",
+                    "operationId": "getRestaurantUniversity",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "Restaurant Id",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "$ref": "#/definitions/University"
+                            }
+                        }
+                    }
+                }
+            },
+            "/restaurants/{id}/menuItems": {
+                "get": {
+                    "tags": [
+                        "menu",
+                        "items"
+                    ],
+                    "summary": "Get restaurant menu items",
+                    "operationId": "getMenuItems",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "Restaurant Id",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/definitions/MenuItem"
+                            }
+                        }
+                    }
+                }
+            },
+            "/restaurants/{id}/orders": {
+                "get": {
+                    "tags": [
+                        "order",
+                        "orders"
+                    ],
+                    "summary": "Get all orders for restaurant",
+                    "operationId": "getRestaurantOrders",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "Restaurant id",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/definitions/Order"
+                            }
+                        }
+                    }
+                }
+            },
+            "/universities": {
+                "get": {
+                    "tags": [
+                        "university",
+                        "universities"
+                    ],
+                    "summary": "Get all Universities",
+                    "operationId": "getUnversities",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/definitions/University"
+                            }
+                        }
+                    }
+                },
+                "post": {
+                    "tags": [
+                        "university",
+                        "universities"
+                    ],
+                    "summary": "Create Universities",
+                    "operationId": "createUniversities",
+                    "consumes": [
+                        "application/vnd.api+json",
+                        "application/json",
+                        "text/json"
+                    ],
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "University objects that need to be added to the model",
+                            "required": false,
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/definitions/University"
+                            }
+                        }
+                    ]
+                }
+            },
+            "/universities/{id}": {
+                "get": {
+                    "tags": [
+                        "university",
+                        "universities"
+                    ],
+                    "summary": "Get University",
+                    "operationId": "getUniversity",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "ID of university that needs to be fetched",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "$ref": "#/definitions/University"
+                            }
+                        }
+                    }
+                },
+                "put": {
+                    "tags": [
+                        "university",
+                        "universities"
+                    ],
+                    "summary": "Create or update university",
+                    "operationId": "updateUniversity",
+                    "consumes": [
+                        "application/vnd.api+json",
+                        "application/json",
+                        "text/json"
+                    ],
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "ID of uni that needs to be fetched",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "Uni objects that need to be updated or created",
+                            "required": false,
+                            "schema": {
+                                "$ref": "#/definitions/University"
+                            }
+                        }
+                    ]
+                },
+                "delete": {
+                    "tags": [
+                        "university",
+                        "universities"
+                    ],
+                    "summary": "Deletes a University",
+                    "description": "",
+                    "operationId": "deleteUniversity",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "University id delete",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "400": {
+                            "description": "Invalid id value"
+                        }
+                    }
+                }
+            },
+            "/universities/{id}/restaurants": {
+                "get": {
+                    "tags": [
+                        "restaurant",
+                        "restaurants"
+                    ],
+                    "summary": "Get all university restaurants",
+                    "operationId": "getRestaurants",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "University id",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/definitions/Restaurant"
+                            }
+                        }
+                    }
+                }
+            },
+            "/orders": {
+                "get": {
+                    "tags": [
+                        "order",
+                        "orders"
+                    ],
+                    "summary": "Get all Orders",
+                    "operationId": "getOrders",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/definitions/Order"
+                            }
+                        }
+                    }
+                },
+                "post": {
+                    "tags": [
+                        "order",
+                        "orders"
+                    ],
+                    "summary": "Create Orders",
+                    "operationId": "createOrders",
+                    "consumes": [
+                        "application/vnd.api+json",
+                        "application/json",
+                        "text/json"
+                    ],
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "Order objects that need to be added to the model",
+                            "required": false,
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/definitions/Order"
+                            }
+                        }
+                    ]
+                }
+            },
+            "/orders/{id}": {
+                "get": {
+                    "tags": [
+                        "order",
+                        "orders"
+                    ],
+                    "summary": "Get order",
+                    "operationId": "getOrder",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "ID of order that needs to be fetched",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "$ref": "#/definitions/Order"
+                            }
+                        }
+                    }
+                },
+                "put": {
+                    "tags": [
+                        "order",
+                        "orders"
+                    ],
+                    "summary": "Create or update order",
+                    "operationId": "updateOrder",
+                    "consumes": [
+                        "application/vnd.api+json",
+                        "application/json",
+                        "text/json"
+                    ],
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "ID of uni that needs to be fetched",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "in": "body",
+                            "name": "body",
+                            "description": "Uni objects that need to be updated or created",
+                            "required": false,
+                            "schema": {
+                                "$ref": "#/definitions/Order"
+                            }
+                        }
+                    ]
+                },
+                "delete": {
+                    "tags": [
+                        "order",
+                        "orders"
+                    ],
+                    "summary": "Deletes an order",
+                    "description": "",
+                    "operationId": "deleteOrder",
+                    "produces": [
+                        "application/vnd.api+json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "Order id to delete",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "400": {
+                            "description": "Invalid id value"
+                        }
+                    }
+                }
+            },
+            "/orders/{id}/restaurant": {
+                "get": {
+                    "get": {
+                        "tags": [
+                            "restaurant",
+                            "restaurants"
+                        ],
+                        "summary": "Get order restaurant",
+                        "operationId": "getOrderRestaurant",
+                        "produces": [
+                            "application/vnd.api+json"
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "successful operation",
+                                "schema": {
+                                    "$ref": "#/definitions/Restaurant"
+                                }
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "User id",
+                                "required": true,
+                                "type": "string"
+                            }
+                        ]
+                    }
+                }
+            },
+                "/orders/{id}/menuItems": {
+                    "get": {
+                        "tags": [
+                            "menu",
+                            "items"
+                        ],
+                        "summary": "Get order menu items",
+                        "operationId": "getMenuItems",
+                        "produces": [
+                            "application/vnd.api+json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "Order Id",
+                                "required": true,
+                                "type": "string"
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "successful operation",
+                                "type": "array",
+                                "schema": {
+                                    "$ref": "#/definitions/MenuItem"
+                                }
+                            }
+                        }
+                    }
+                },
+                "/orders/{id}/customer": {
+                    "get": {
+                        "tags": [
+                            "users",
+                            "user"
+                        ],
+                        "summary": "Get order customer",
+                        "operationId": "getOrderCustomer",
+                        "produces": [
+                            "application/vnd.api+json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "Order Id",
+                                "required": true,
+                                "type": "string"
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "successful operation",
+                                "schema": {
+                                    "$ref": "#/definitions/User"
+                                }
+                            }
+                        }
+                    }
+                },
+                "/orders/{id}/driver": {
+                    "get": {
+                        "tags": [
+                            "users",
+                            "user"
+                        ],
+                        "summary": "Get order driver",
+                        "operationId": "getOrderDriver",
+                        "produces": [
+                            "application/vnd.api+json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "Order Id",
+                                "required": true,
+                                "type": "string"
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "successful operation",
+                                "schema": {
+                                    "$ref": "#/definitions/User"
+                                }
+                            }
+                        }
+                    }
+                },
+                "/orders/{id}/university": {
+                    "get": {
+                        "tags": [
+                            "university",
+                            "universities"
+                        ],
+                        "summary": "Get order's university",
+                        "operationId": "getOrderUniversity",
+                        "produces": [
+                            "application/vnd.api+json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "Order Id",
+                                "required": true,
+                                "type": "string"
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "successful operation",
+                                "schema": {
+                                    "$ref": "#/definitions/University"
+                                }
+                            }
+                        }
+                    }
+                },
+                "/menuItems": {
+                    "get": {
+                        "tags": [
+                            "menu",
+                            "items"
+                        ],
+                        "summary": "Get all menu items",
+                        "operationId": "getMenuItems",
+                        "produces": [
+                            "application/vnd.api+json"
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "successful operation",
+                                "type": "array",
+                                "schema": {
+                                    "$ref": "#/definitions/MenuItem"
+                                }
+                            }
+                        }
+                    },
+                    "post": {
+                        "tags": [
+                            "menu",
+                            "items"
+                        ],
+                        "summary": "Create menu items",
+                        "operationId": "createMenuItems",
+                        "consumes": [
+                            "application/vnd.api+json",
+                            "application/json",
+                            "text/json"
+                        ],
+                        "produces": [
+                            "application/vnd.api+json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "body",
+                                "name": "body",
+                                "description": "Menu Item objects that need to be added to the model",
+                                "required": false,
+                                "type": "array",
+                                "schema": {
+                                    "$ref": "#/definitions/MenuItem"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "/menuItems/{id}": {
+                    "get": {
+                        "tags": [
+                            "menu",
+                            "items"
+                        ],
+                        "summary": "Get menu item",
+                        "operationId": "getMenuItem",
+                        "produces": [
+                            "application/vnd.api+json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "ID of item that needs to be fetched",
+                                "required": true,
+                                "type": "string"
+                            }
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "successful operation",
+                                "schema": {
+                                    "$ref": "#/definitions/MenuItem"
+                                }
+                            }
+                        }
+                    },
+                    "put": {
+                        "tags": [
+                            "menu",
+                            "items"
+                        ],
+                        "summary": "Create or update item",
+                        "operationId": "updateMenuItem",
+                        "consumes": [
+                            "application/vnd.api+json",
+                            "application/json",
+                            "text/json"
+                        ],
+                        "produces": [
+                            "application/vnd.api+json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "ID of item that needs to be fetched",
+                                "required": true,
+                                "type": "string"
+                            },
+                            {
+                                "in": "body",
+                                "name": "body",
+                                "description": "Menu Item object that needs to be updated or created",
+                                "required": false,
+                                "schema": {
+                                    "$ref": "#/definitions/MenuItem"
+                                }
+                            }
+                        ]
+                    },
+                    "delete": {
+                        "tags": [
+                            "menu",
+                            "items"
+                        ],
+                        "summary": "Deletes a menu item",
+                        "description": "",
+                        "operationId": "deleteMenuItem",
+                        "produces": [
+                            "application/vnd.api+json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "Item id to delete",
+                                "required": true,
+                                "type": "string"
+                            }
+                        ],
+                        "responses": {
+                            "400": {
+                                "description": "Invalid id value"
+                            }
+                        }
+                    }
+                },
+                "/menuItem/{id}/restaurant": {
+                    "get": {
+                        "get": {
+                            "tags": [
+                                "restaurant"
+                            ],
+                            "summary": "Get menu items restaurant",
+                            "operationId": "getMenuItemRestaurant",
+                            "produces": [
+                                "application/vnd.api+json"
+                            ],
+                            "responses": {
+                                "200": {
+                                    "description": "successful operation",
+                                    "schema": {
+                                        "$ref": "#/definitions/Restaurant"
+                                    }
+                                }
+                            },
+                            "parameters": [
+                                {
+                                    "in": "path",
+                                    "name": "id",
+                                    "description": "Menu Item id",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                    "/restaurantTypes": {
+                        "get": {
+                            "tags": [
+                                "restaurant",
+                                "restaurantType"
+                            ],
+                            "summary": "Get all restaurant types",
+                            "operationId": "getRestaurantTypes",
+                            "produces": [
+                                "application/vnd.api+json"
+                            ],
+                            "responses": {
+                                "200": {
+                                    "description": "successful operation",
+                                    "type": "array",
+                                    "schema": {
+                                        "$ref": "#/definitions/RestaurantType"
+                                    }
+                                }
+                            }
+                        },
+                        "post": {
+                            "tags": [
+                                "restaurant",
+                                "restaurantType"
+                            ],
+                            "summary": "Create restaurant types",
+                            "operationId": "createRestaurantTypes",
+                            "consumes": [
+                                "application/vnd.api+json",
+                                "application/json",
+                                "text/json"
+                            ],
+                            "produces": [
+                                "application/vnd.api+json"
+                            ],
+                            "parameters": [
+                                {
+                                    "in": "body",
+                                    "name": "body",
+                                    "description": "Restaurant Type objects that need to be added to the model",
+                                    "required": false,
+                                    "type": "array",
+                                    "schema": {
+                                        "$ref": "#/definitions/RestaurantType"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "/restaurantTypes/{id}": {
+                        "get": {
+                            "tags": [
+                                "restaurant",
+                                "restaurantType"
+                            ],
+                            "summary": "Get restaurant type",
+                            "operationId": "getRestaurantType",
+                            "produces": [
+                                "application/vnd.api+json"
+                            ],
+                            "parameters": [
+                                {
+                                    "in": "path",
+                                    "name": "id",
+                                    "description": "ID of type that needs to be fetched",
+                                    "required": true,
+                                    "type": "string"
+                                }
+                            ],
+                            "responses": {
+                                "200": {
+                                    "description": "successful operation",
+                                    "schema": {
+                                        "$ref": "#/definitions/RestaurantType"
+                                    }
+                                }
+                            },
+                            "put": {
+                                "tags": [
+                                    "restaurant",
+                                    "restaurantType"
+                                ],
+                                "summary": "Create or update restaurant type",
+                                "operationId": "updateRestaurantType",
+                                "consumes": [
+                                    "application/vnd.api+json",
+                                    "application/json",
+                                    "text/json"
+                                ],
+                                "produces": [
+                                    "application/vnd.api+json"
+                                ],
+                                "parameters": [
+                                    {
+                                        "in": "path",
+                                        "name": "id",
+                                        "description": "ID of type that needs to be fetched",
+                                        "required": true,
+                                        "type": "string"
+                                    },
+                                    {
+                                        "in": "body",
+                                        "name": "body",
+                                        "description": "Restaurant Type object that needs to be updated or created",
+                                        "required": false,
+                                        "schema": {
+                                            "$ref": "#/definitions/RestaurantType"
+                                        }
+                                    }
+                                ]
+                            },
+                            "delete": {
+                                "tags": [
+                                    "restaurant",
+                                    "restaurantType"
+                                ],
+                                "summary": "Deletes a menu item",
+                                "description": "",
+                                "operationId": "deleteRestaurantType",
+                                "produces": [
+                                    "application/vnd.api+json"
+                                ],
+                                "parameters": [
+                                    {
+                                        "in": "path",
+                                        "name": "id",
+                                        "description": "Item id to delete",
+                                        "required": true,
+                                        "type": "string"
+                                    }
+                                ],
+                                "responses": {
+                                    "400": {
+                                        "description": "Invalid id value"
+                                    }
+                                }
+                            }
+                        }},
+                        "/restaurantTypes/{id}/restaurants": {
+                            "get": {
+                                "tags": [
+                                    "restaurant",
+                                    "restaurants"
+                                ],
+                                "summary": "Get all restaurants of this restaurant type",
+                                "operationId": "getRestaurants",
+                                "produces": [
+                                    "application/vnd.api+json"
+                                ],
+                                "parameters": [
+                                    {
+                                        "in": "path",
+                                        "name": "id",
+                                        "description": "Type id",
+                                        "required": true,
+                                        "type": "string"
+                                    }
+                                ],
+                                "responses": {
+                                    "200": {
+                                        "description": "successful operation",
+                                        "type": "array",
+                                        "schema": {
+                                            "$ref": "#/definitions/Restaurant"
+                                        }
+                                    }
+                                }
+                            }
+                        }},
+                        "definitions": {
+                            "User": {
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "firstname": {
+                                        "type": "string"
+                                    },
+                                    "lastname": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "university": {
+                                        "$ref": "University"
+                                    },
+                                    "restaurant": {
+                                        "$ref": "Restaurant"
+                                    },
+                                    "ordersMade": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "Order"
+                                        }
+                                    },
+                                    "ordersToDeliver": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "Order"
+                                        }
+                                    },
+                                    "userType": {
+                                        "type": "integer",
+                                        "format": "int32"
+                                    }
+                                }
+                            },
+                            "Restaurant": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "manager": {
+                                        "$ref": "User"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "restaurantTypes": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "RestaurantType"
+                                        }
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "university": {
+                                        "$ref": "university"
+                                    },
+                                    "menuItems": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "MenuItem"
+                                        }
+                                    },
+                                    "orders": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "Order"
+                                        }
+                                    }
+                                }
+                            },
+                            "RestaurantType": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "restaurants": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "Restaurant"
+                                        }
+                                    }
+                                }
+                            },
+                            "University": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "restaurants": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "Restaurant"
+                                        }
+                                    },
+                                    "gpsPoint": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "MenuItem": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "double"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "restaurant": {
+                                        "$ref": "Restaurant"
+                                    }
+                                }
+                            },
+                            "Order": {
+                                "properties": {
+                                    "restaurant": {
+                                        "$ref": "Restaurant"
+                                    },
+                                    "menuItems": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "MenuItem"
+                                        }
+                                    },
+                                    "customer": {
+                                        "$ref": "User"
+                                    },
+                                    "driver": {
+                                        "$ref": "User"
+                                    },
+                                    "university": {
+                                        "$ref": "University"
+                                    },
+                                    "deliveryAddress": {
+                                        "type": "string"
+                                    },
+                                    "deliveryGPSPoint": {
+                                        "type": "string"
+                                    },
+                                    "deliveryCost": {
+                                        "type": "number",
+                                        "format": "double"
+                                    },
+                                    "cost": {
+                                        "type": "number",
+                                        "format": "double"
+                                    },
+                                    "created": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "statusCode": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+    }

@@ -47,9 +47,7 @@ app.get('/uni_menu/:id', function(req, res) {
     });
 });
 
-app.get('/', function(req, res) {
-    res.send('Hello, you have reached the API.');
-});
+app.use(express.static(__dirname+'/public'));
 
 app.listen(port);
 
