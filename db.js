@@ -86,6 +86,11 @@ ddAPI.resource('order', {
 
 ddAPI.before('order', function(request) {
     var order = this;
+    
+    if (_.has(order, 'driver')) {
+        return order;
+    }
+
     return new RSVP.Promise(function(resolve, reject) {
         //get all drivers
         ddAPI.adapter.findMany('user', {'userType':1}).then(function(resource) {
